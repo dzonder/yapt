@@ -34,7 +34,7 @@ define('CONF_FOOTER_EMAIL', 'dzonder@yapt.pl');
 $languages = array_map(
     create_function('$s', 'return substr($s, 0, -4);'), 
     array_filter(
-        scandir('geshi/geshi'),
+        scandir('geshi/languages'),
         create_function('$s', 'return $s != "." && $s != "..";')
     )
 );
