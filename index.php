@@ -7,7 +7,7 @@
  * @copyright 2011 YAPT
  */
 
-include_once 'config.inc.php';
+include_once 'libs/config.inc.php';
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"

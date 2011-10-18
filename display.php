@@ -7,7 +7,7 @@
  * @copyright 2011 YAPT
  */
 
-include_once 'config.inc.php';
+include_once 'libs/config.inc.php';
 
 function _die($msg=false) {
     if ($msg) echo $msg;

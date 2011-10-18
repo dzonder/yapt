@@ -7,8 +7,8 @@
  * @copyright 2011 YAPT
  */
 
-include_once 'config.inc.php';
-include_once 'geshi/geshi.php';
+include_once 'libs/config.inc.php';
+include_once 'libs/geshi/geshi.php';
 
 if (!isset($_POST['passwd'], $_POST['lang'], $_POST['code'])) {
     die('POST values undefined!');
