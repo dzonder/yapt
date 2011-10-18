@@ -24,7 +24,7 @@ mysql_select_db(MYSQL_DATABASE);
 
 $raw_code = $_POST['code'];
 
-// Hightlight using GeSHi
+// Highlight using GeSHi
 $geshi = new GeSHi($_POST['code'], $_POST['lang']);
 $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
 $highlighted_code = $geshi->parse_code();
