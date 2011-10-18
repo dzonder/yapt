@@ -1,0 +1,21 @@
+body {
+   font-size: 14px;
+}
+
+img {
+   border: none;
+}
+
+h1 a {
+   text-decoration: none;
+}
+
+form label {
+   width: 100px;
+   float: left;
+}
+
+p.description {
+   font-size: 0.75em;
+   color: #aaaaaa;
+}

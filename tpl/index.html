@@ -6,11 +6,12 @@
     <p class="description">If supplied, pasted code will be encrypted in database, otherwise everyone can view the paste.</p>
   </div>
   <div>
-    <label for="frm-lang">Highlight</label>
+    <label for="frm-lang">Highlighting</label>
     <select name="lang" id="frm-lang">
       <option value="none">None</option>
       {loop="languages"}<option value="{$value}">{$value|ucfirst}</option>{/loop}
     </select>
+    <p class="description">Select language for proper syntax highlighting.</p>
   </div>
   <div>
     <textarea name="code" rows="20" cols="85"></textarea>
