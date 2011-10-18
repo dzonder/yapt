@@ -3,5 +3,6 @@
 *.vis
 *.bac
 *~
+config.inc.php
 cache/*
 *.log
