@@ -1,0 +1,24 @@
+## PHP development
+## Disable on production!
+php_flag display_errors on
+php_value error_reporting 32767
+
+## Default index
+DirectoryIndex index.php
+
+## Do not show directory listings
+Options -Indexes
+
+## SEO Rewrite
+RewriteEngine on
+RewriteRule ^index$ index.php [L]
+RewriteRule ^paste$ paste.php [L]
+RewriteRule ^([0-9a-f]+)$ display.php?id=$1 [L]
+RewriteRule ^raw/([0-9a-f]+)$ display.php?id=$1&raw [L]
+
+## Security stuff
+## Enable on production!
+#<FilesMatch "(DB|*.sql|docs|libs|.inc.php|.class.php)">
+#  Order Allow,Deny
+#  Deny from all
+#</FilesMatch>
