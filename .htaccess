@@ -18,7 +18,7 @@ RewriteRule ^raw/([0-9a-f]+)$ display.php?id=$1&raw [L]
 
 ## Security stuff
 ## Enable on production!
-<FilesMatch "(libs|.inc.php|.class.php)">
+<FilesMatch "(tmp|tpl|libs|.inc.php|.class.php)">
   Order Allow,Deny
   Deny from all
 </FilesMatch>

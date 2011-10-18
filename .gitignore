@@ -4,5 +4,5 @@
 *.bac
 *~
 config.inc.php
-cache/*
+tmp/*
 *.log
