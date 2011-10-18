@@ -11,10 +11,13 @@ include_once 'libs/config.inc.php';
 include_once 'libs/rain.tpl.class.php';
 
 $tpl = new RainTPL();
+$tpl->configure('base_url', CONF_URL);
 
 if (!isset($_GET['id'])) {
     die('ID undefined!');
 }
+
+$tpl->assign('id', $_GET['id']);
 
 // Establish MySQL connection
 mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
@@ -42,7 +45,7 @@ if (strpos($paste['flags'], 'ENC_3DES') !== false) {
         die();
     } else {
         $hash = mhash(MHASH_SHA1, $_POST['passwd']);
-        $code = mcrypt_decrypt(MCRYPT_3DES, $hash, $code, MCRYPT_MODE_ECB);
+        $code = trim(mcrypt_decrypt(MCRYPT_3DES, $hash, $code, MCRYPT_MODE_ECB));
     }
 }
 
@@ -50,7 +53,6 @@ if (isset($_GET['raw'])) {
     echo $code;
 } else {
     $tpl->assign('subtitle', 'Paste ID ' .$_GET['id']);
-    $tpl->assign('id', $_GET['id']);
     $tpl->assign('code', $code);
     $tpl->draw('display');
 }

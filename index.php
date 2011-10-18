@@ -14,6 +14,7 @@ $tpl = new RainTPL();
 
 $tpl->assign('subtitle', 'Add new paste');
 $tpl->assign('languages', $languages);
+
 $tpl->draw('index');
 
 ?>
