@@ -8,13 +8,16 @@
  */
 
 include_once 'libs/config.inc.php';
-include_once 'libs/geshi/geshi.php';
 
 if (!isset($_POST['passwd'], $_POST['lang'], $_POST['code'])) {
     die('POST values undefined!');
 }
 
-if (strlen(trim($_POST['code'])) == 0) {
+$passwd = $_POST['passwd'];
+$lang = $_POST['lang'];
+$code = $_POST['code'];
+
+if (strlen(trim($code)) == 0) {
     die('Code empty!');
 }
 
@@ -22,31 +25,22 @@ if (strlen(trim($_POST['code'])) == 0) {
 mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
 mysql_select_db(MYSQL_DATABASE);
 
-$raw_code = $_POST['code'];
-
-// Highlight using GeSHi
-$geshi = new GeSHi($_POST['code'], $_POST['lang']);
-$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-$highlighted_code = $geshi->parse_code();
-
 // Encrypt if password supplied
-if (strlen($_POST['passwd']) > 0) {
+if (strlen($passwd) > 0) {
     $flags = 'ENC_3DES';
-    $hash = mhash(MHASH_SHA1, $_POST['passwd']);
-    $raw_code = mcrypt_encrypt(MCRYPT_3DES, $hash, $raw_code, MCRYPT_MODE_ECB);
-    $highlighted_code = mcrypt_encrypt(MCRYPT_3DES, $hash, $highlighted_code, MCRYPT_MODE_ECB);
+    $hash = mhash(MHASH_SHA1, $passwd);
+    $code = mcrypt_encrypt(MCRYPT_3DES, $hash, $code, MCRYPT_MODE_ECB);
 } else {
     $flags = 'ENC_PLAIN';
 }
 
 // Insert into database
 mysql_query("INSERT INTO pastes 
-    (timesent, flags, raw_code, highlighted_code)
+    (flags, language, code)
     VALUES (
-        NOW(), 
         '$flags', 
-        '" .mysql_escape_string($raw_code) ."', 
-        '" .mysql_escape_string($highlighted_code) ."'
+        '" .mysql_escape_string($lang) ."',
+        '" .mysql_escape_string($code) ."' 
     )");
 
 // Redirect to paste
