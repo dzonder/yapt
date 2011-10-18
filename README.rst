@@ -5,7 +5,7 @@ Yet Another Paste Tool. As simple as possible with encryption support for non-pu
 
 Uses PHP+MYSQL+GESHI.
 
-TODO:
-- move html to templates
-- secure queries
-- error handling
+TODO
+* move html to templates
+* secure queries
+* error handling
