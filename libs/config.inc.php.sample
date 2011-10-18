@@ -34,7 +34,7 @@ define('CONF_FOOTER_EMAIL', 'me(at)dzonder(dot)net');
 $languages = array_map(
     create_function('$s', 'return substr($s, 0, -4);'), 
     array_filter(
-        scandir('libs/geshi/languages'),
+        scandir('libs/geshi/geshi'),
         create_function('$s', 'return $s != "." && $s != "..";')
     )
 );

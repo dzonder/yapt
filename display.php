@@ -12,8 +12,6 @@ include_once 'libs/rain.tpl.class.php';
 
 $tpl = new RainTPL();
 
-$tpl->assign('subtitle', 'Display encrypted paste');
-
 if (!isset($_GET['id'])) {
     die('ID undefined!');
 }
@@ -39,6 +37,7 @@ if (isset($_GET['raw'])) {
 
 if (strpos($paste['flags'], 'ENC_3DES') !== false) {
     if (!isset($_POST['passwd'])) {
+        $tpl->assign('subtitle', 'Display encrypted paste');
         $tpl->draw('password');
         die();
     } else {
@@ -50,6 +49,8 @@ if (strpos($paste['flags'], 'ENC_3DES') !== false) {
 if (isset($_GET['raw'])) {
     echo $code;
 } else {
+    $tpl->assign('subtitle', 'Paste ID ' .$_GET['id']);
+    $tpl->assign('id', $_GET['id']);
     $tpl->assign('code', $code);
     $tpl->draw('display');
 }
