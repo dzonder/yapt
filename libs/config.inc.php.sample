@@ -25,7 +25,7 @@ define('CONF_FOOTER_NAME', 'dzonder');
 /**
  * Email in copyright - page footer
  */
-define('CONF_FOOTER_EMAIL', 'me.dzonder.net');
+define('CONF_FOOTER_EMAIL', 'me@dzonder.net');
 
 /**
  * Enabled language highlighters
