@@ -8,7 +8,7 @@
   <div>
     <label for="frm-lang">Highlighting</label>
     <select name="lang" id="frm-lang">
-      {loop="languages"}<option value="{$key}">{$value}</option>{/loop}
+      {loop="languages"}<option value="{$key}">{$value.label}</option>{/loop}
     </select>
     <p class="description">Select language for proper syntax highlighting.</p>
   </div>

@@ -43,6 +43,14 @@ if (strpos($paste['flags'], 'ENC_3DES') !== false) {
 }
 
 if ($raw) {
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename=raw.' .$conf_languages[$paste['language']]['extension']);
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma: public');
+    header('Content-Length: ' .mb_strlen($code, '8bit'));
     echo $code;
 } else {
     // Highlight using GeSHi
@@ -51,7 +59,7 @@ if ($raw) {
     $code = $geshi->parse_code();
 
     $tpl->assign('subtitle', 'Paste ID ' .dechex($paste['id']));
-    $tpl->assign('lang', $conf_languages[$paste['language']]);
+    $tpl->assign('lang', $conf_languages[$paste['language']]['label']);
     $tpl->assign('code', $code);
 
     $tpl->draw('display');
