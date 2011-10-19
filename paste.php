@@ -10,28 +10,34 @@
 include_once 'libs/config.inc.php';
 
 if (!isset($_POST['passwd'], $_POST['lang'], $_POST['code'])) {
-    die('POST values undefined!');
+    throw new Exception('POST values undefined!');
 }
 
 $passwd = $_POST['passwd'];
 $lang = $_POST['lang'];
 $code = $_POST['code'];
+$flags = array();
 
 if (strlen(trim($code)) == 0) {
-    die('Code empty!');
+    throw new Exception('Code empty!');
 }
 
 // Establish MySQL connection
-mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
-mysql_select_db(MYSQL_DATABASE);
+$link = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
+
+if ($link === false) {
+    throw new Exception('MySQL connection error: ' .mysql_error());
+}
+
+mysql_select_db(MYSQL_DATABASE, $link);
 
 // Encrypt if password supplied
 if (strlen($passwd) > 0) {
-    $flags = 'ENC_3DES';
-    $hash = mhash(MHASH_SHA1, $passwd);
-    $code = mcrypt_encrypt(MCRYPT_3DES, $hash, $code, MCRYPT_MODE_ECB);
+    array_push($flags, 'ENC_3DES');
+    $passwd_hash = mhash(MHASH_SHA1, $passwd);
+    $code = mcrypt_encrypt(MCRYPT_3DES, $passwd_hash, $code, MCRYPT_MODE_ECB);
 } else {
-    $flags = 'ENC_PLAIN';
+    array_push($flags, 'ENC_PLAIN');
 }
 
 // Insert into database
@@ -41,12 +47,12 @@ mysql_query("INSERT INTO pastes
         '$flags', 
         '" .mysql_escape_string($lang) ."',
         '" .mysql_escape_string($code) ."' 
-    )");
+    )", $link);
 
 // Redirect to paste
-$id = mysql_insert_id();
+$id = mysql_insert_id($link);
 header('Location: ' .CONF_URL .dechex($id));
 
-mysql_close();
+mysql_close($link);
 
 ?>

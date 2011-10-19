@@ -15,23 +15,28 @@ $tpl = new RainTPL();
 $tpl->configure('base_url', CONF_URL);
 
 if (!isset($_GET['id'])) {
-    die('ID undefined!');
+    throw new Exception('ID undefined!');
 }
 
 $raw = isset($_GET['raw']);
 $tpl->assign('id', $_GET['id']);
 
 // Establish MySQL connection
-mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
-mysql_select_db(MYSQL_DATABASE);
+$link = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
 
-$result = mysql_query("SELECT * FROM pastes WHERE id=" .hexdec($_GET['id']));
+if ($link === false) {
+    throw new Exception('MySQL connection error: ' .mysql_error($link));
+}
+
+mysql_select_db(MYSQL_DATABASE, $link);
+
+$result = mysql_query("SELECT * FROM pastes WHERE id=" .hexdec($_GET['id']), $link);
 $paste = mysql_fetch_assoc($result);
 
-mysql_close();
+mysql_close($link);
 
 if (!isset($paste['id'])) {
-    die('ID does not exist!');
+    throw new Exception('ID does not exist!');
 }
 
 $code = $paste['code'];
