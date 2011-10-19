@@ -28,6 +28,11 @@ define('CONF_FOOTER_NAME', 'dzonder');
 define('CONF_FOOTER_EMAIL', 'me@dzonder.net');
 
 /**
+ * Number of displayed pastes in latest list
+ */
+define('CONF_LATEST_LIMIT', 25);
+
+/**
  * Enabled language highlighters
  */
 // TODO cache languages scan
