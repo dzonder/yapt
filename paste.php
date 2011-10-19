@@ -19,6 +19,10 @@ $lang = $_POST['lang'];
 $code = $_POST['code'];
 $flags = array();
 
+if (!isset($conf_languages[$lang])) {
+    throw new Exception('Language does not exist!');
+}
+
 if (strlen(trim($code)) == 0) {
     throw new Exception('Code empty!');
 }

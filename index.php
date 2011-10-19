@@ -13,7 +13,7 @@ include_once 'libs/rain.tpl.class.php';
 $tpl = new RainTPL();
 
 $tpl->assign('subtitle', 'Add new paste');
-$tpl->assign('languages', $languages);
+$tpl->assign('languages', $conf_languages);
 
 $tpl->draw('index');
 

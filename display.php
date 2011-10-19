@@ -51,6 +51,7 @@ if ($raw) {
     $code = $geshi->parse_code();
 
     $tpl->assign('subtitle', 'Paste ID ' .dechex($paste['id']));
+    $tpl->assign('lang', $conf_languages[$paste['language']]);
     $tpl->assign('code', $code);
 
     $tpl->draw('display');
