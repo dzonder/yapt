@@ -36,7 +36,7 @@ if (strlen($passwd) > 0) {
 mysql_query("INSERT INTO pastes 
     (flags, language, code)
     VALUES (
-        '$flags', 
+        '" .implode($flags, ',') ."', 
         '" .mysql_escape_string($lang) ."',
         '" .mysql_escape_string($code) ."' 
     )");
