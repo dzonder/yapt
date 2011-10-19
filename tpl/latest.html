@@ -1,0 +1,5 @@
+{include="header"}
+<div id="latest-pastes">
+  {loop="pastes"}<div><a href="{$value.id|dechex}">{$value.id|dechex}</a> {$value.timesent}</div>{else}No pastes{/loop}
+</div>
+{include="footer"}
