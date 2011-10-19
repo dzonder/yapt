@@ -10,6 +10,7 @@
 include_once 'libs/config.inc.php';
 include_once 'libs/rain.tpl.class.php';
 include_once 'libs/geshi/geshi.php';
+include_once 'libs/mysql.inc.php';
 
 $tpl = new RainTPL();
 $tpl->configure('base_url', CONF_URL);
@@ -21,19 +22,8 @@ if (!isset($_GET['id'])) {
 $raw = isset($_GET['raw']);
 $tpl->assign('id', $_GET['id']);
 
-// Establish MySQL connection
-$link = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
-
-if ($link === false) {
-    throw new Exception('MySQL connection error: ' .mysql_error($link));
-}
-
-mysql_select_db(MYSQL_DATABASE, $link);
-
-$result = mysql_query("SELECT * FROM pastes WHERE id=" .hexdec($_GET['id']), $link);
+$result = mysql_query("SELECT * FROM pastes WHERE id=" .hexdec($_GET['id']));
 $paste = mysql_fetch_assoc($result);
-
-mysql_close($link);
 
 if (!isset($paste['id'])) {
     throw new Exception('ID does not exist!');
@@ -62,6 +52,7 @@ if ($raw) {
 
     $tpl->assign('subtitle', 'Paste ID ' .dechex($paste['id']));
     $tpl->assign('code', $code);
+
     $tpl->draw('display');
 }
 

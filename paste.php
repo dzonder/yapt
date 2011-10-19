@@ -8,6 +8,7 @@
  */
 
 include_once 'libs/config.inc.php';
+include_once 'libs/mysql.inc.php';
 
 if (!isset($_POST['passwd'], $_POST['lang'], $_POST['code'])) {
     throw new Exception('POST values undefined!');
@@ -21,15 +22,6 @@ $flags = array();
 if (strlen(trim($code)) == 0) {
     throw new Exception('Code empty!');
 }
-
-// Establish MySQL connection
-$link = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
-
-if ($link === false) {
-    throw new Exception('MySQL connection error: ' .mysql_error());
-}
-
-mysql_select_db(MYSQL_DATABASE, $link);
 
 // Encrypt if password supplied
 if (strlen($passwd) > 0) {
@@ -47,12 +39,10 @@ mysql_query("INSERT INTO pastes
         '$flags', 
         '" .mysql_escape_string($lang) ."',
         '" .mysql_escape_string($code) ."' 
-    )", $link);
+    )");
 
 // Redirect to paste
 $id = mysql_insert_id($link);
 header('Location: ' .CONF_URL .dechex($id));
-
-mysql_close($link);
 
 ?>
