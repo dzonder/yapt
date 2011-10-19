@@ -58,7 +58,7 @@ if ($raw) {
     $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
     $code = $geshi->parse_code();
 
-    $tpl->assign('subtitle', 'Paste ID ' .dechex($paste['id']));
+    $tpl->assign('subtitle', 'Paste ' .dechex($paste['id']));
     $tpl->assign('lang', $conf_languages[$paste['language']]['label']);
     $tpl->assign('code', $code);
 
