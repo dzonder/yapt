@@ -12,11 +12,10 @@ include_once 'libs/rain.tpl.class.php';
 include_once 'libs/mysql.inc.php';
 
 $tpl = new RainTPL();
-$tpl->configure('base_url', CONF_URL);
 
 $result = mysql_query("SELECT id, timesent 
     FROM pastes 
-    WHERE FIND_IN_SET('ENC_PLAIN', flags) 
+    WHERE encryption = 'ENC_PLAIN' 
     ORDER BY timesent DESC 
     LIMIT " .CONF_LATEST_LIMIT);
 
@@ -26,6 +25,7 @@ while ($row = mysql_fetch_assoc($result)) {
 }
 
 $tpl->assign('subtitle', 'Latest pastes');
+$tpl->assign('subdescription', 'only unencrypted pastes are visible');
 $tpl->assign('pastes', $pastes);
 
 $tpl->draw('latest');

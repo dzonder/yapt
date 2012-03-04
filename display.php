@@ -9,11 +9,9 @@
 
 include_once 'libs/config.inc.php';
 include_once 'libs/rain.tpl.class.php';
-include_once 'libs/geshi/geshi.php';
 include_once 'libs/mysql.inc.php';
 
 $tpl = new RainTPL();
-$tpl->configure('base_url', CONF_URL);
 
 if (!isset($_GET['id'])) {
     throw new Exception('ID undefined!');
@@ -30,8 +28,9 @@ if (!isset($paste['id'])) {
 }
 
 $code = $paste['code'];
+$timesent = $paste['timesent'];
 
-if (strpos($paste['flags'], 'ENC_3DES') !== false) {
+if ($paste['encryption'] == 'ENC_3DES') {
     if (!isset($_POST['passwd'])) {
         $tpl->assign('subtitle', 'Display encrypted paste');
         $tpl->draw('password');
@@ -45,7 +44,7 @@ if (strpos($paste['flags'], 'ENC_3DES') !== false) {
 if ($raw) {
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename=raw.' .$conf_languages[$paste['language']]['extension']);
+    header('Content-Disposition: attachment; filename=rawpaste' .dechex($paste['id']));
     header('Content-Transfer-Encoding: binary');
     header('Expires: 0');
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -53,15 +52,10 @@ if ($raw) {
     header('Content-Length: ' .mb_strlen($code, '8bit'));
     echo $code;
 } else {
-    // Highlight using GeSHi
-    $geshi = new GeSHi($code, $paste['language']);
-    $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-    $code = $geshi->parse_code();
-
-    $tpl->assign('subtitle', 'Paste ' .dechex($paste['id']));
-    $tpl->assign('lang', $conf_languages[$paste['language']]['label']);
+    $tpl->assign('subtitle', 'Paste #' .dechex($paste['id']));
     $tpl->assign('code', $code);
-
+    $tpl->assign('timesent', $timesent);
+    $tpl->assign('datesent', $timesent);
     $tpl->draw('display');
 }
 

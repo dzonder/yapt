@@ -1,5 +1,20 @@
 {include="header"}
-<div id="latest-pastes">
-  {loop="pastes"}<div><a href="{$value.id|dechex}">{$value.id|dechex}</a> {$value.timesent}</div>{else}No pastes{/loop}
+<div class="page-header">
+  <h1>{$subtitle} <small>{$subdescription}</small></h1>
+</div>
+<div class="row">
+  <div class="span4">
+    <table class="table table-striped">
+      <tr>
+        <th>ID</th><th>Time</th>
+      </tr>
+      {loop="pastes"}
+      <tr>
+        <td><a href="{$value.id|dechex}">#{$value.id|dechex}</a></td>
+        <td>{$value.timesent}</td>
+      </tr>
+      {/loop}
+    </table>
+  </div>
 </div>
 {include="footer"}

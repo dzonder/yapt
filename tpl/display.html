@@ -1,12 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>{#CONF_TITLE#} - {$subtitle}</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <p>Paste {$id} | <strong>{$lang}</strong> | <a href="raw/{$id}">Download</a> | <a href="">New paste</a></p>
-    {$code}
-  </body>
-</html>
+{include="header"}
+<div class="row">
+  <div class="span12">
+    <p>
+      <a class="btn" href="raw/{$id}">Download</a>
+      <span class="label label-important">#{$id}</span>
+      <span class="label label-info">{$timesent}</span>
+    </p>
+    <pre class="prettyprint linenums">{$code|htmlspecialchars}</pre>
+  </div>
+</div>
+{include="footer"}

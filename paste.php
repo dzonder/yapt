@@ -10,18 +10,13 @@
 include_once 'libs/config.inc.php';
 include_once 'libs/mysql.inc.php';
 
-if (!isset($_POST['passwd'], $_POST['lang'], $_POST['code'])) {
+if (!isset($_POST['passwd'], $_POST['code'])) {
     throw new Exception('POST values undefined!');
 }
 
 $passwd = $_POST['passwd'];
-$lang = $_POST['lang'];
 $code = $_POST['code'];
 $flags = array();
-
-if (!isset($conf_languages[$lang])) {
-    throw new Exception('Language does not exist!');
-}
 
 if (strlen(trim($code)) == 0) {
     throw new Exception('Code empty!');
@@ -29,19 +24,18 @@ if (strlen(trim($code)) == 0) {
 
 // Encrypt if password supplied
 if (strlen($passwd) > 0) {
-    array_push($flags, 'ENC_3DES');
+    $encryption = 'ENC_3DES';
     $passwd_hash = mhash(MHASH_SHA1, $passwd);
     $code = mcrypt_encrypt(MCRYPT_3DES, $passwd_hash, $code, MCRYPT_MODE_ECB);
 } else {
-    array_push($flags, 'ENC_PLAIN');
+    $encryption = 'ENC_PLAIN';
 }
 
 // Insert into database
 mysql_query("INSERT INTO pastes 
-    (flags, language, code)
+    (encryption, code)
     VALUES (
-        '" .implode($flags, ',') ."', 
-        '" .mysql_escape_string($lang) ."',
+        '" .$encryption ."', 
         '" .mysql_escape_string($code) ."' 
     )");
 
