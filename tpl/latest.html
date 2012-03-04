@@ -5,15 +5,19 @@
 <div class="row">
   <div class="span4">
     <table class="table table-striped">
-      <tr>
-        <th>ID</th><th>Time</th>
-      </tr>
-      {loop="pastes"}
-      <tr>
-        <td><a href="{$value.id|dechex}">#{$value.id|dechex}</a></td>
-        <td>{$value.timesent}</td>
-      </tr>
-      {/loop}
+      <thead>
+        <tr>
+          <th>ID</th><th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {loop="pastes"}
+        <tr>
+          <td><a href="{$value.id|dechex}">#{$value.id|dechex}</a></td>
+          <td>{$value.timesent}</td>
+        </tr>
+        {/loop}
+      </tbody>
     </table>
   </div>
 </div>
