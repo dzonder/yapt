@@ -1,12 +1,8 @@
 {include="header"}
-<div class="row">
-  <div class="span12">
-    <p>
-      <a class="btn" href="raw/{$id}">Download</a>
-      <span class="label label-important">#{$id}</span>
-      <span class="label label-info">{$timesent}</span>
-    </p>
-    <pre class="prettyprint linenums">{$code|htmlspecialchars}</pre>
-  </div>
-</div>
+<p>
+  <a class="btn" href="raw/{$id}">Download</a>
+  <span class="label label-important">#{$id}</span>
+  <span class="label label-info">{$timesent}</span>
+</p>
+<pre class="prettyprint linenums">{$code|htmlspecialchars}</pre>
 {include="footer"}
