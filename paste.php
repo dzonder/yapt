@@ -42,7 +42,7 @@ mysql_query("INSERT INTO pastes
 // Redirect to paste
 $id = mysql_insert_id($link);
 
-if (isset($_GET['getid'])) {
+if (isset($_GET['cc'])) {
     echo dechex($id) ."\n";
 } else {
     header('Location: ' .CONF_URL .dechex($id));

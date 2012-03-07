@@ -18,6 +18,7 @@ if (!isset($_GET['id'])) {
 }
 
 $raw = isset($_GET['raw']);
+$tpl->assign('actionurl', $raw ? 'raw/' : '');
 $tpl->assign('id', $_GET['id']);
 
 $result = mysql_query("SELECT * FROM pastes WHERE id=" .hexdec($_GET['id']));
@@ -32,9 +33,13 @@ $timesent = $paste['timesent'];
 
 if ($paste['encryption'] == 'ENC_3DES') {
     if (!isset($_POST['passwd'])) {
-        $tpl->assign('subtitle', 'Display encrypted paste');
-        $tpl->draw('password');
-        die();
+        if (isset($_GET['cc'])) {
+            die("Fatal: password required\n");
+        } else {
+            $tpl->assign('subtitle', 'Display encrypted paste');
+            $tpl->draw('password');
+            die();
+        }
     } else {
         $hash = mhash(MHASH_SHA1, $_POST['passwd']);
         $code = trim(mcrypt_decrypt(MCRYPT_3DES, $hash, $code, MCRYPT_MODE_ECB));
