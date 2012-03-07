@@ -8,6 +8,7 @@ Options -Indexes
 RewriteEngine on
 RewriteRule ^index$ index.php [L]
 RewriteRule ^paste$ paste.php [L]
+RewriteRule ^paste/getid$ paste.php?getid [L]
 RewriteRule ^latest$ latest.php [L]
 RewriteRule ^([0-9a-f]+)$ display.php?id=$1 [L]
 RewriteRule ^raw/([0-9a-f]+)$ display.php?id=$1&raw [L]
