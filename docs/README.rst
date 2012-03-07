@@ -1,12 +1,21 @@
 YAPT
 ====
 
-Yet Another Paste Tool. As simple as possible with encryption support for non-public pastes.
-Uses HTML5+jQuery+Bootstrap+PHP+MySQL+KISS.
+Yet Another Paste Tool.
+As simple as possible with encryption support for non-public pastes.
+
+Used technologies:
+   
+* HTML5 + jQuery + Bootstrap
+* PHP + MySQL
 
 Available at https://yapt.dzonder.net/
 
-:Todo: - error handling
-:Author: Michal Olech
-:License: MIT
-:Mail: me@dzonder.net
+TODO
+----
+
+* error handling
+
+:author: Michal Olech
+:license: MIT
+:mail: me@dzonder.net
